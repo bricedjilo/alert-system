@@ -41,12 +41,30 @@ body {
 }
 
 .btn-primary {
-	background: #3238b5 !important;
+	background: #4c33b2 !important;
+}
+
+.login-button:hover {
+	background: #6746fa !important;
 }
 
 .login-form {
 	margin: 30% 0 20% 0;
 }
+
+#login-input {
+	font-size: 2em;
+}
+
+input[type="submit"] {
+    font-family: FontAwesome;
+}
+
+/*#login-input {
+
+}
+background: url(images/comment-author.gif) no-repeat scroll 7px 7px;
+padding-left:30px;*/
 
 form[role=login] {
 	color: #5a5a5a;
