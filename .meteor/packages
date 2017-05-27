@@ -21,3 +21,5 @@ autopublish@1.0.7             # Publish all data to the clients (for prototyping
 iron:router
 twbs:bootstrap
 fortawesome:fontawesome
+http
+accounts-password

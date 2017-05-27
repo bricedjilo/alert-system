@@ -1,16 +1,13 @@
 
 Meteor.startup(function() {
-	LDAP_DEFAULTS.url = 'ldap://LONDNT201.Hexcel.com/OU=Users,OU=SALT,OU=Sites,DC=hexcel,DC=com';
-	LDAP_DEFAULTS.dn = 'OU=Users,OU=SALT,OU=Sites,DC=hexcel,DC=com';
-	LDAP_DEFAULTS.port = '';
-	LDAP_DEFAULTS.searchResultsProfileMap = [
-		{
-	      resultKey: 'cn',
-	      profileProperty: 'name'
-	    }
-	    ,{
-	      resultKey: 'mail',
-	      profileProperty: 'phoneNumber'
-	    }
-	 ]
+	// HTTP.call("GET","http://localhost:8000/auth/djilobx/Fender2020", function(error, response){
+	// 	if(error) {
+	// 		console.log("Error");
+	// 	} else {
+	// 		console.log(response.data);
+	// 	}
+	// });
+
+	// console.log(response);
+
 });
