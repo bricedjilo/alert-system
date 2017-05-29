@@ -28,15 +28,18 @@ Meteor.methods({
 		}
 
 		try {
-			response = HTTP.call("GET",("http://localhost:8000/auth/"+ credentials.username + "/" + credentials.password));
-			console.log(response.data);
+			response = HTTP.call("GET",("http://localhost:8000/auth/"+ credentials.username + "/" + credentials.password)).data;
+			console.log(response);
+			if(response.login==="failed") {
+				console.log("failed");
+				return {failed: "Username/password is incorrect."};
+			}
 		} catch (e) {
-			console.log();
 			throw new Error("Authentication failed: Unable to get an ldap response. Check ldap connection.");
 		}
 
-		if (response.data.username) { // if user auths in ldap
-			user = Accounts.findUserByUsername(response.data.username);
+		if (response.username) { // if user auths in ldap
+			user = Accounts.findUserByUsername(response.username);
 			if(user) { // if user exists locally
 				try {
 					console.log("User exists locally");

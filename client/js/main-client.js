@@ -31,10 +31,15 @@ Template.login.events({
 			if(error) {
 				console.log(error);
 			} else {
-				console.log(result);
-				Meteor.loginWithPassword(username, result.token, function(error) {
-					console.log(error);
-				});
+				if(result.failed) {
+					console.log(result);
+				} else {
+					Meteor.loginWithPassword(username, result.token, function(error) {
+						if(error){
+							console.log(error);
+						}
+					});
+				}
 			}
 		});
 	  return;

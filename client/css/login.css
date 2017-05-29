@@ -1,7 +1,4 @@
 /*@CHARSET "UTF-8";*/
-/*
-over-ride "Weak" message, show font in dark grey
-*/
 
 .progress-bar {
     color: #333;
@@ -21,9 +18,9 @@ http://www.bootstrapzen.com/item/135/simple-login-form-logo/
 
 .form-control {
   	position: relative;
-  	font-size: 16px;
+  	font-size: 18px;
   	height: auto;
-	padding: 10px;
+	padding: 7px;
 }
 
 @include box-sizing(border-box);
@@ -38,22 +35,27 @@ http://www.bootstrapzen.com/item/135/simple-login-form-logo/
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+	 /*margin-bottom: 0 !important;
+	 height: 100% !important;
+	 padding: 0 !important;*/
 }
 
-.btn-primary {
-	background: #4c33b2 !important;
+.dashboard {
+	/*background: */
+}
+
+.login-button {
+	background: transparent !important;
+	border: none;
 }
 
 .login-button:hover {
-	background: #6746fa !important;
+	/*background: rgba(50, 56, 163, 0.5) !important;*/
+	background: rgba(39, 55, 131, 0.4) !important;
 }
 
 .login-form {
 	margin: 30% 0 20% 0;
-}
-
-#login-input {
-	font-size: 2em;
 }
 
 input[type="submit"] {
@@ -67,8 +69,8 @@ background: url(images/comment-author.gif) no-repeat scroll 7px 7px;
 padding-left:30px;*/
 
 form[role=login] {
-	color: #5a5a5a;
-	background: #e5e5e5;
+	color: #77ace2;
+	background: transparent;
 	padding: 26px;
 	border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -83,12 +85,19 @@ form[role=login] img {
 
 form[role=login] input,
 form[role=login] button {
-	font-size: 18px;
+	font-size: 1.25em;
 	margin: 16px 0;
 }
 
 form[role=login] > div {
 	text-align: center;
+}
+
+.login-input {
+	font-size: 2em;
+	background: transparent;
+	color: white;
+	border: 1px solid rgba(130, 130, 130, 0.5) !important;
 }
 
 .form-links {
@@ -100,7 +109,7 @@ form[role=login] > div {
 }
 
 .form-links a {
-	color: #fff;
+	color: rgba(175, 175, 175, 0.5);
 	text-decoration: none;
 }
 
