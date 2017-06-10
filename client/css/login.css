@@ -30,14 +30,11 @@ http://www.bootstrapzen.com/item/135/simple-login-form-logo/
 
 .hexcel {
 	/*background: url(http://i.imgur.com/GHr12sH.jpg) no-repeat center center fixed;*/
-	background: url(/images/fiber3.jpg) no-repeat center center fixed;
+	background: url('/images/login/fiber3.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-	 /*margin-bottom: 0 !important;
-	 height: 100% !important;
-	 padding: 0 !important;*/
 }
 
 .dashboard {
@@ -50,7 +47,7 @@ http://www.bootstrapzen.com/item/135/simple-login-form-logo/
 }
 
 .login-button:hover {
-	/*background: rgba(50, 56, 163, 0.5) !important;*/
+	background: rgba(50, 56, 163, 0.5) !important;
 	background: rgba(39, 55, 131, 0.4) !important;
 }
 

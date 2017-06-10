@@ -1,3 +1,5 @@
+// iCheck = Npm.require('iCheck');
+
 /*----------------- Route Configs ------------------*/
 Router.configure({
     layoutTemplate: "ApplicationLayout"
@@ -27,6 +29,9 @@ Router.onBeforeAction(function () {
 Template.login.onRendered(function() {
   	$('body').addClass("hexcel");
 });
+Template.dashboard.onRendered(function() {
+  	$('body').addClass("nav-md");
+});
 
 
 /*----------------- Accounts -------------------------- */
@@ -37,5 +42,17 @@ Accounts.onLogin(function() {
 
 Accounts.onLogout(function() {
 	$('body').addClass("hexcel");
+	$('body').removeClass("nav-md");
 	Router.go('/login');
+});
+
+/*------------------ iCheck ---------------------------- */
+// $('input.flat').iCheck();
+Template.dashboard.onRendered(function() {
+	$('input.flat').iCheck({
+		 checkboxClass: 'icheckbox_flat-blue',
+		 radioClass: 'iradio_flat-green'
+	});
+
+
 });
