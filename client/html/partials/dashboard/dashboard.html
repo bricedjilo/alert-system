@@ -1,0 +1,26 @@
+<template name="dashboard">
+
+	<body class="nav-md container">
+	  <div class="container body_container">
+		 <div class="main_container row">
+		 	{{> leftMenuBlock}}
+			{{> topNav}}
+			<!-- {{> contentHome}} -->
+			<div class="right_col" style='padding-right: 30px; padding-left: 30px;' role="main">
+				{{> UI.dynamic template=getContent}}
+			</div>
+			{{> footer}}
+		 </div>
+	  </div>
+
+	  <!-- compose -->
+     <div class="compose col-md-6 col-xs-12">
+       <div class="compose-header">
+         New Message
+         <button type="button" class="close compose-close">
+           <span>×</span>
+         </button>
+       </div>
+	 </div>
+ </body>
+</template>
