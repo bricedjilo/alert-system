@@ -1,6 +1,7 @@
 
 Meteor.startup(function () {
 	Meteor.subscribe('user');
+	Session.set({view: "contentHome"});
 });
 
 ///////////////
@@ -9,6 +10,12 @@ Meteor.startup(function () {
 
 Template.login.helpers({
 
+});
+
+Template.dashboard.helpers({
+	getContent: function() {
+		return Session.get("view");
+	}
 });
 
 
@@ -46,68 +53,30 @@ Template.login.events({
 	}
 });
 
+Template.sideMenu.events({
+	'click #js-main-dashboard': function(event) {
+		event.preventDefault();
+		console.log("hello");
+		Session.set({view: 'contentHome'});
+	},
+	'click #js-create-priority': function(event) {
+		event.preventDefault();
+		console.log('create');
+		Session.set({view: 'userInfo'});
+	}
+});
+
 Template.dashboard.events({
 	'click .logout': function() {
 		event.preventDefault();
         Meteor.logout();
 	},
-	'mouseover #sidebar-menu': function(event) {
-		stopEvent(event);
-		var $BODY = $('body'),
-		$SIDEBAR_MENU = $('#sidebar-menu');
-		$SIDEBAR_MENU.find('a').on('click', function(ev) {
-			stopEvent(ev);
-			console.log('clicked - sidebar_menu');
-			var $li = $(this).parent();
-			if ($li.is('.active')) {
-	            $li.removeClass('active active-sm');
-	            $('ul:first', $li).slideUp(function() {
-	                setContentHeight();
-	            });
-	        } else {
-	            // prevent closing menu if we are on child menu
-	            if (!$li.parent().is('.child_menu')) {
-	                $SIDEBAR_MENU.find('li').removeClass('active active-sm');
-	                $SIDEBAR_MENU.find('li ul').slideUp();
-	            }else
-	            {
-					if ( $BODY.is( ".nav-sm" ) )
-					{
-						$SIDEBAR_MENU.find( "li" ).removeClass( "active active-sm" );
-						$SIDEBAR_MENU.find( "li ul" ).slideUp();
-					}
-				}
-	            $li.addClass('active');
+	// 'click #js-main-dashboard': function(event) {
+	// 	stopEvent(event);
+	// 	console.log("hello");
+	// },
+	'click .side-menu': function(event) {
 
-	            $('ul:first', $li).slideDown(function() {
-	                setContentHeight();
-	            });
-	        }
-	    });
-	},
-	'click #menu_toggle': function() {
-		var $BODY = $('body'),
-		$SIDEBAR_MENU = $('#sidebar-menu');
-		// $MENU_TOGGLE.on('click', function() {
-			console.log('clicked - menu toggle');
-
-			if ($BODY.hasClass('nav-md')) {
-				$("#main-logo").attr("src","/images/logo/logo-white-hexa-1.png");
-				$SIDEBAR_MENU.find('li.active ul').hide();
-				$SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
-			} else {
-				$("#main-logo").attr("src","/images/logo/logo-white.png");
-				$SIDEBAR_MENU.find('li.active-sm ul').show();
-				$SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
-
-			}
-
-			$BODY.toggleClass('nav-md nav-sm');
-
-			setContentHeight();
-
-			$('.dataTable').each ( function () { $(this).dataTable().fnDraw(); });
-		// });
 	}
 
 });
@@ -115,10 +84,10 @@ Template.dashboard.events({
 var stopEvent = function(event) {
 	event.preventDefault();
 	event.stopPropagation();
-	event.stopImmediatePropagation();
+	// event.stopImmediatePropagation();
 }
 
-var setContentHeight = function () {
+setContentHeight = function () {
 	var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
 		 $BODY = $('body'),
 		 $MENU_TOGGLE = $('#menu_toggle'),
@@ -145,7 +114,7 @@ var setContentHeight = function () {
 
 // Sidebar
 function init_sidebar() {
-// TODO: This is some kind of easy fix, maybe we can improve this
+// : This is some kind of easy fix, maybe we can improve this
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
 	 $BODY = $('body'),

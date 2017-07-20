@@ -7,7 +7,7 @@ html , body{
 
 /*-------- Logo -------*/
 .logo {
-	height: 100%;
+	height: 80%;
 	width: auto;
 }
 
@@ -150,12 +150,14 @@ html , body{
     padding: 0 0 4px 0
 }
 .left_col {
-    background: #2A3F54;
+    background: transparent;
+	 /*rgba(23, 45, 68, 0.6);*/
+	 /*#172d44;*/
 	 /*padding-left: 5px;*/
 }
 .nav-sm .container.body_container .col-md-3.left_col {
     min-height: 100%;
-    width: 70px;
+    width: 80px;
     padding: 0;
     z-index: 9999;
     position: absolute
@@ -173,7 +175,7 @@ html , body{
 }
 .nav-sm .container.body_container .right_col {
     padding: 10px 20px;
-    margin-left: 70px;
+    margin-left: 80px;
     z-index: 2
 }
 .nav-sm .navbar.nav_title {
@@ -193,7 +195,7 @@ html , body{
 }
 .nav-sm .main_container .top_nav {
     display: block;
-    margin-left: 70px;
+    margin-left: 80px;
     z-index: 2
 }
 .nav-sm .nav.side-menu li a {
@@ -264,14 +266,15 @@ html , body{
     float: left
 }
 .img-circle.profile_img {
-    width: 70%;
-    background: #fff;
+    width: 80%;
+    /*background: #fff;*/
     margin-left: 15%;
     z-index: 1000;
     position: inherit;
     margin-top: 20px;
-    border: 1px solid rgba(52, 73, 94, 0.44);
-    padding: 4px
+    border: none;
+	 /*1px solid rgba(52, 73, 94, 0.44);*/
+    padding: 4px;
 }
 .profile_info {
     padding: 25px 10px 10px;
@@ -354,18 +357,23 @@ html , body{
     position: fixed
 }
 body .container.body_container .right_col {
-    background: #F7F7F7
+    background: #eee;
+	 /*#F7F7F7*/
 }
 .nav-md .container.body_container .right_col {
     padding: 10px 20px 0;
-    margin-left: 230px
+    margin-left: 225px
 }
 .nav_title {
-    width: 230px;
+    width: 200px;
     float: left;
-    background: #2A3F54;
+    background: #172d44;
+	 /*transparent;*/
+	 /*rgba(23, 45, 68, 5);*/
+	 /*height: 100%;*/
+
     border-radius: 0;
-    height: 57px
+    /*height: 57px*/
 }
 @media (max-width: 991px) {
     .nav-md .container.body_container .right_col,
@@ -495,15 +503,19 @@ body .container.body_container .right_col {
 }
 body {
     color: #73879C;
-    background: #2A3F54;
+    /*background: rgba(23, 45, 68, 0.4);*/
+	 background: #172d44;
+	 /*url('/images/login/fiber3.jpg') no-repeat left center fixed;*/
+	 /*#2A3F54;*/
     font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     font-size: 13px;
     font-weight: 400;
     line-height: 1.471
+	 height: 100%;
 }
 .main_container .top_nav {
     display: block;
-    margin-left: 230px
+    margin-left: 224px
 }
 .no-padding {
     padding: 0 !important
@@ -730,7 +742,7 @@ a:focus {
 .nav.side-menu>li>a {
     margin-bottom: 6px
 }
-.nav.side-menu>li>a:hover {
+.nav.side-menu>li>a:hover, panel-group>a:hover {
     color: #F2F5F7 !important
 }
 .nav.side-menu>li>a:hover,
@@ -1678,7 +1690,8 @@ span.right {
     padding: 5px 0 0 0;
     position: fixed;
     width: 230px;
-    background: #2A3F54;
+    border-top: 1px solid #2A3F54;
+	 background: #172d44;
 	z-index:999;
 }
 .sidebar-footer a {
