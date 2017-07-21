@@ -1,10 +1,27 @@
 <template name="createMajorIncident">
-	<div class="container">
+	<div class="container" style="padding-top: 10px;">
 		<h3>Create a major incident notification</h3>
-		<div class="clearfix"></div
 		<div class="">
-			{{> UI.dynamic template=getMajorIncidentSteps}}
+			<form>
+				{{> UI.dynamic template=getMajorIncidentSteps}}
+				<div class="ln_solid" style="margin-top: 10%;"></div>
+				<div class="container" style="margin: 0 auto; width: 90%">
+					<div class="row">
+						<div class="col-xs-6">
+							<button type="submit" style="display: inline-block;" class="btn info-btn btn-btn disabled" name="next" id="js-create-inc-previous-button">
+								&#8249; PREV
+							</button>
+						</div>
+						<div class="col-xs-6">
+							<button type="submit" style="display: inline-block; float:right;" class="btn info-btn btn-btn disabled" name="next" id="js-create-inc-next-button">
+								NEXT &#8250;
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
+
 	</div>
 </template>
 
@@ -20,7 +37,7 @@
 			  </div>
 			  <div class="x_content">
 				 <br />
-				 <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+				 <!-- <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left"> -->
 
 					<div class="form-group">
 					  <div class="col-xs-12">
@@ -44,13 +61,13 @@
 						  </div>
 					  </div>
 					</div>
-					<div class="ln_solid"></div>
-				 </form>
+
+				 <!-- </form> -->
 			  </div>
 			</div>
-		<div style="margin: 0 auto; text-align: center;">
+		<!-- <div style="margin: 0 auto; text-align: center;">
 			<button type="submit" class="btn info-btn btn-btn disabled" name="next" id="js-caller-button">NEXT</button>
-		</div>
+		</div> -->
  </div>
 </template>
 

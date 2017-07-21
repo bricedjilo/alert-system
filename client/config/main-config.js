@@ -17,6 +17,10 @@ Router.route('/dashboard', function() {
     this.render("dashboard");
 });
 
+Router.route('/incident', function() {
+    this.render("createMajorIncident");
+});
+
 Router.onBeforeAction(function () {
 	if (!Meteor.userId()) {
 		this.render('login');
@@ -31,6 +35,9 @@ Template.login.onRendered(function() {
 });
 Template.dashboard.onRendered(function() {
   	$('body').addClass("nav-md");
+});
+Template.createMajorIncident.onRendered(function() {
+  	$('#js-create-inc-previous-button').hide(600);
 });
 
 
@@ -56,10 +63,10 @@ Template.callOrTicket.onRendered(function() {
 		 radioClass: 'iradio_flat-green'
 	});
 	$('input#js-radio-call').on('ifChecked', function(event) {
-		$('#js-call-or-ticket-button').removeClass("disabled");
+		$('#js-create-inc-next-button').removeClass("disabled");
 	});
 	$('input#js-radio-ticket').on('ifChecked', function(event) {
-		$('#js-call-or-ticket-button').removeClass("disabled");
+		$('#js-create-inc-next-button').removeClass("disabled");
 	});
 });
 

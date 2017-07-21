@@ -90,7 +90,9 @@ Template.sideMenu.events({
 		event.preventDefault();
 		console.log('create');
 		$('input').iCheck('uncheck');
-		$('#js-call-or-ticket-button').addClass("disabled");
+		// $('#js-create-inc-previous-button').hide();
+		// $('#js-create-inc-previous-button').addClass("disabled");
+		$('#js-create-inc-next-button').addClass("disabled");
 		Session.set({view_create_incident: 'callOrTicket'});
 		Session.set({view: 'createMajorIncident'});
 
