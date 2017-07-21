@@ -1,1 +1,17 @@
 /* CSS declarations go here */
+
+.center-div {
+    /*margin: auto;*/
+    width: 50%;
+	 padding-top: 10%;
+}
+
+.info-btn {background-color: #2196F3;} /* Blue */
+.info-btn:hover {background: #0b7dda;}
+
+.btn-btn {
+    border: none; /* Remove borders */
+    color: white; /* Add a text color */
+    padding: 14px 28px; /* Add some padding */
+    cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
