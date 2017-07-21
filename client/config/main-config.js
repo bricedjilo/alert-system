@@ -46,7 +46,23 @@ Accounts.onLogout(function() {
 	Router.go('/login');
 });
 
+/*-------------------- JS ------------------------------- */
+
+
 /*------------------ iCheck ---------------------------- */
+Template.callOrTicket.onRendered(function() {
+	$('input.flat').iCheck({
+		 checkboxClass: 'icheckbox_flat-blue',
+		 radioClass: 'iradio_flat-green'
+	});
+	$('input#js-radio-call').on('ifChecked', function(event) {
+		$('#js-call-or-ticket-button').removeClass("disabled");
+	});
+	$('input#js-radio-ticket').on('ifChecked', function(event) {
+		$('#js-call-or-ticket-button').removeClass("disabled");
+	});
+});
+
 // $('input.flat').iCheck();
 Template.dashboard.onRendered(function() {
 	$('input.flat').iCheck({

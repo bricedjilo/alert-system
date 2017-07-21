@@ -7,6 +7,11 @@ Meteor.startup(function () {
 ///////////////
 /// helpers
 //////////////
+Template.createMajorIncident.helpers({
+	getMajorIncidentSteps: function() {
+		return Session.get("view_create_incident");
+	}
+});
 
 Template.login.helpers({
 
@@ -22,6 +27,28 @@ Template.dashboard.helpers({
 /////////////
 /// events
 /////////////
+
+Template.callOrTicket.events({
+	'click #js-call-or-ticket-button': function(event) {
+		if(event.target.className.indexOf("disabled") < 0) {
+			event.preventDefault();
+			$("#js-call-or-ticket-form").animate({ right: '23%', opacity: 0.3 }, 250);
+			setTimeout(function () {
+				Session.set({view_create_incident: 'callerInfo'});
+			}, 300);
+			console.log("move");
+			return false;
+		}
+	},
+	'click #js-call-or-ticket-form': function(event) {
+		// console.log('event');
+		// event.preventDefault();
+		// $('input').on('ifChecked', function(event){
+		//   console.log(event.type + ' callback');
+		// });
+
+	}
+});
 
 Template.login.events({
 	'submit #login-js-form': function(event) {
@@ -62,7 +89,11 @@ Template.sideMenu.events({
 	'click #js-create-priority': function(event) {
 		event.preventDefault();
 		console.log('create');
-		Session.set({view: 'userInfo'});
+		$('input').iCheck('uncheck');
+		$('#js-call-or-ticket-button').addClass("disabled");
+		Session.set({view_create_incident: 'callOrTicket'});
+		Session.set({view: 'createMajorIncident'});
+
 	}
 });
 
@@ -71,10 +102,6 @@ Template.dashboard.events({
 		event.preventDefault();
         Meteor.logout();
 	},
-	// 'click #js-main-dashboard': function(event) {
-	// 	stopEvent(event);
-	// 	console.log("hello");
-	// },
 	'click .side-menu': function(event) {
 
 	}
