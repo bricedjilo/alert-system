@@ -23,7 +23,6 @@ Template.dashboard.helpers({
 	}
 });
 
-
 /////////////
 /// events
 /////////////
@@ -31,38 +30,45 @@ Template.dashboard.helpers({
 Template.createMajorIncident.events({
 	'click #js-create-inc-next-button': function(event) {
 		event.preventDefault();
-		console.log($('form').children()[0]);
-		$($('form').children()[0]).animate({ right: '0%', opacity: 0.3 }, 400);
-		setTimeout(function () {
-			if(Session.get('view_create_incident').indexOf("callerInfo")) {
-				Session.set({view_create_incident: 'incidentDescription'});
-			}
-			Session.set({view_create_incident: 'callerInfo'});
-		}, 300);
+		// console.log(event.target.className);
+		if(event.target.className.indexOf("disabled")<0) {
+			$($('form').children()[0]).animate({ right: '0%', opacity: 0.3 }, 400);
+			setTimeout(function () {
+				if(Session.get('view_create_incident').indexOf("callerInfo")) {
+					Session.set({view_create_incident: 'incidentDescription'});
+				}
+				Session.set({view_create_incident: 'callerInfo'});
+			}, 300)
+		}
+		return false;
+	},
+	'click #js-create-inc-previous-button': function(event) {
+		event.preventDefault();
+		var form = event.target.form.elements;
+		Session.set({caller: {
+			name: (form['caller-name'].value.length > 0)?form['caller-name'].value:undefined,
+			phone: (form['phone-number'].value.length > 0)?form['phone-number'].value:undefined,
+			department: (form['department'].value.length > 0)?form['department'].value:undefined,
+			building: (form['building-number'].value.length > 0)?form['building-number'].value:undefined
+		}});
+		// console.log(event.target.form.elements['caller-name'].value);
+		Session.set({view_create_incident: 'callOrTicket'});
+		$('#js-create-inc-previous-button').hide(500);
 		return false;
 	}
 });
 
 Template.callOrTicket.events({
 	'click #js-call-or-ticket-button': function(event) {
-		// if(event.target.className.indexOf("disabled") < 0) {
-		// 	event.preventDefault();
-		// 	$("#js-call-or-ticket-form").animate({ right: '23%', opacity: 0.3 }, 250);
-		// 	setTimeout(function () {
-		// 		Session.set({view_create_incident: 'callerInfo'});
-		// 	}, 300);
-		// 	console.log("move");
-		// 	return false;
-		// }
+		// console.log(Session.get('callOrTicket.c'));
 	},
 	'click #js-call-or-ticket-form': function(event) {
-		// console.log('event');
-		// event.preventDefault();
-		// $('input').on('ifChecked', function(event){
-		//   console.log(event.type + ' callback');
-		// });
 
 	}
+});
+
+Template.callerInfo.events({
+
 });
 
 Template.login.events({
@@ -104,11 +110,13 @@ Template.sideMenu.events({
 	'click #js-create-priority': function(event) {
 		event.preventDefault();
 		console.log('create');
-		$('input').iCheck('uncheck');
 		// $('#js-create-inc-previous-button').hide();
 		// $('#js-create-inc-previous-button').addClass("disabled");
-		$('#js-create-inc-previous-button').hide(500);
-		$('#js-create-inc-next-button').addClass("disabled");
+		if(Session.get('callOrTicket.call') || Session.get('callOrTicket.ticket')) {
+			$('#js-create-inc-next-button').removeClass("disabled");
+		} else {
+			$('#js-create-inc-next-button').addClass("disabled");
+		}
 		Session.set({view_create_incident: 'callOrTicket'});
 		Session.set({view: 'createMajorIncident'});
 

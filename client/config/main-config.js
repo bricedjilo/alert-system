@@ -38,6 +38,11 @@ Template.dashboard.onRendered(function() {
 });
 Template.createMajorIncident.onRendered(function() {
   	$('#js-create-inc-previous-button').hide(500);
+	Session.set({'callOrTicket.call': false});
+	Session.set({'callOrTicket.ticket': false});
+	$('input#js-radio-call').iCheck('uncheck');
+	$('input#js-radio-ticket').iCheck('uncheck');
+	$('#js-create-inc-next-button').addClass("disabled");
 });
 
 
@@ -62,18 +67,45 @@ Template.callOrTicket.onRendered(function() {
 		 checkboxClass: 'icheckbox_flat-blue',
 		 radioClass: 'iradio_flat-green'
 	});
+	if(Session.get('callOrTicket.call')) {
+		$('#js-create-inc-next-button').removeClass("disabled");
+		$('input#js-radio-call').iCheck('check');
+	} else if(Session.get('callOrTicket.ticket')) {
+		$('input#js-radio-ticket').iCheck('check');
+		$('#js-create-inc-next-button').removeClass("disabled");
+	}
 	$('input#js-radio-call').on('ifChecked', function(event) {
 		$('#js-create-inc-next-button').removeClass("disabled");
+		Session.set({'callOrTicket.call': true});
+		Session.set({'callOrTicket.ticket': false});
 	});
 	$('input#js-radio-ticket').on('ifChecked', function(event) {
 		$('#js-create-inc-next-button').removeClass("disabled");
+		Session.set({'callOrTicket.ticket': true});
+		Session.set({'callOrTicket.call': false});
+	});
+	$('input#js-radio-call').on('ifUnChecked', function(event) {
+		// $('#js-create-inc-next-button').removeClass("disabled");
+		Session.set({'callOrTicket.call': false});
+	});
+	$('input#js-radio-ticket').on('ifUnChecked', function(event) {
+		// $('#js-create-inc-next-button').removeClass("disabled");
+		Session.set({'callOrTicket.ticket': false});
 	});
 });
 
 Template.callerInfo.onRendered(function() {
 	$('#js-create-inc-next-button').addClass("disabled");
-	$('#js-create-inc-previous-button').removeClass("disabled");
 	$('#js-create-inc-previous-button').show(400);
+
+	var caller = Session.get('caller');
+	var form = $("#js-create-incident-form");
+	var keys = (caller)?Object.keys(caller):[];
+	if(caller && keys.length) {
+		keys.forEach(function(key, index) {
+			form.find('input[name*=' + key + ']').val(caller[key]);
+		});
+	}
 });
 
 // $('input.flat').iCheck();
