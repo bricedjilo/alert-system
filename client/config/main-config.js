@@ -37,7 +37,7 @@ Template.dashboard.onRendered(function() {
   	$('body').addClass("nav-md");
 });
 Template.createMajorIncident.onRendered(function() {
-  	$('#js-create-inc-previous-button').hide(600);
+  	$('#js-create-inc-previous-button').hide(500);
 });
 
 
@@ -68,6 +68,12 @@ Template.callOrTicket.onRendered(function() {
 	$('input#js-radio-ticket').on('ifChecked', function(event) {
 		$('#js-create-inc-next-button').removeClass("disabled");
 	});
+});
+
+Template.callerInfo.onRendered(function() {
+	$('#js-create-inc-next-button').addClass("disabled");
+	$('#js-create-inc-previous-button').removeClass("disabled");
+	$('#js-create-inc-previous-button').show(400);
 });
 
 // $('input.flat').iCheck();

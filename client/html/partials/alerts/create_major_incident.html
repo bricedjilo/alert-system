@@ -2,7 +2,7 @@
 	<div class="container" style="padding-top: 10px;">
 		<h3>Create a major incident notification</h3>
 		<div class="">
-			<form>
+			<form id="js-create-incident-form">
 				{{> UI.dynamic template=getMajorIncidentSteps}}
 				<div class="ln_solid" style="margin-top: 10%;"></div>
 				<div class="container" style="margin: 0 auto; width: 90%">
@@ -13,7 +13,7 @@
 							</button>
 						</div>
 						<div class="col-xs-6">
-							<button type="submit" style="display: inline-block; float:right;" class="btn info-btn btn-btn disabled" name="next" id="js-create-inc-next-button">
+							<button type="submit" style="display: inline-block; float:right; position:relative;" class="btn info-btn btn-btn disabled" name="next" id="js-create-inc-next-button">
 								NEXT &#8250;
 							</button>
 						</div>
@@ -26,49 +26,39 @@
 </template>
 
 <template name="callerInfo">
-	<div class="center-div" role="main" style="margin: 0 auto; position:relative;">
-		<!-- <div class="row"> -->
-			<!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> -->
-				<div class="x_panel">
-					<div class="x_title">
-						<h2>Caller </h2>
-
-				 <div class="clearfix"></div>
-			  </div>
-			  <div class="x_content">
-				 <br />
-				 <!-- <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left"> -->
-
-					<div class="form-group">
-					  <div class="col-xs-12">
-						 <input type="text" autofocus id="name" required="required" placeholder="Name" class="form-control col-md-7 col-xs-12">
-					  </div>
-					</div>
-					<div class="form-group">
-					  <div class="col-xs-12">
-						 <input type="text" id="phone-number" name="phone-number" placeholder="Phone number" required="required" class="form-control col-md-7 col-xs-12">
-					  </div>
-					</div>
-					<div class="form-group">
-					  <div class="col-xs-12">
-						  <div class="row">
-							  <div class="col-xs-6">
-								  <input id="department" class="form-control col-md-7 col-xs-12" placeholder="department" required="required" type="text">
-							  </div>
-							  <div class="col-xs-6">
-								  <input id="building-number" class="form-control col-md-7 col-xs-12" placeholder="Building number" required="required" type="text">
-							  </div>
-						  </div>
-					  </div>
-					</div>
-
-				 <!-- </form> -->
-			  </div>
+	<div class="center-div animated fadeIn" role="main" style="margin: 0 auto; position:relative;">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Caller </h2>
+				<div class="clearfix"></div>
 			</div>
-		<!-- <div style="margin: 0 auto; text-align: center;">
-			<button type="submit" class="btn info-btn btn-btn disabled" name="next" id="js-caller-button">NEXT</button>
-		</div> -->
- </div>
+			<div class="x_content">
+				<br />
+				<div class="form-group">
+					<div class="col-xs-12">
+						<input type="text" autofocus id="name" required="required" placeholder="Name" class="form-control col-md-7 col-xs-12">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12">
+						<input type="text" id="phone-number" name="phone-number" placeholder="Phone number" required="required" class="form-control col-md-7 col-xs-12">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12">
+						<div class="row">
+							<div class="col-xs-6">
+								<input id="department" class="form-control col-md-7 col-xs-12" placeholder="department" required="required" type="text">
+							</div>
+							<div class="col-xs-6">
+								<input id="building-number" class="form-control col-md-7 col-xs-12" placeholder="Building number" required="required" type="text">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <template name="incidentDescription">
