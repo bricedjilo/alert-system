@@ -8,7 +8,7 @@
 				<div class="container" style="margin: 0 auto; width: 90%">
 					<div class="row">
 						<div class="col-xs-6">
-							<button type="submit" style="display: inline-block;" class="btn info-btn btn-btn" name="previous" id="js-create-inc-previous-button">
+							<button type="button" style="display: inline-block;" class="btn info-btn btn-btn" name="previous" id="js-create-inc-previous-button">
 								&#8249; PREV
 							</button>
 						</div>
@@ -21,7 +21,6 @@
 				</div>
 			</form>
 		</div>
-
 	</div>
 </template>
 
@@ -34,27 +33,14 @@
 			</div>
 			<div class="x_content">
 				<br />
-				<div class="">
-					<div class="form-group">
-						<input type="text" autofocus id="caller-name" name="caller-name" required="required" placeholder="Name" class="form-control">
-					</div>
-				</div>
-				<div class="">
 				<div class="form-group">
-						<input type="text" id="phone-number" name="phone-number" placeholder="Phone number" required="required" class="form-control">
-					</div>
+					<input type="text" autofocus id="caller-name" name="caller-name" placeholder="Name" class="form-control" required>
 				</div>
-				<div class="">
 				<div class="form-group">
-						<div class="row">
-							<div class="col-xs-6">
-								<input name="department" class="form-control" placeholder="department" required="required" type="text">
-							</div>
-							<div class="col-xs-6">
-								<input name="building-number" class="form-control" placeholder="Building number" required="required" type="text">
-							</div>
-						</div>
-					</div>
+					<input type="text" id="phone-number" name="phone-number" placeholder="Phone number" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<input name="department" class="form-control" placeholder="department" type="text" required>
 				</div>
 			</div>
 		</div>
@@ -62,57 +48,52 @@
 </template>
 
 <template name="incidentDescription">
-		 <!-- <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"> -->
-			 <div class="x_panel">
-				 <div class="x_title">
-						 <h2>Incident Description </h2>
-
-						 <div class="clearfix"></div>
-					  </div>
-					  <div class="x_content">
-					  <br />
-					  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-						  <div class="row">
-							  <div class="col-sm-6 col-xs-12">
-									 <div class="form-group">
-					 					  <div class="col-xs-12">
-					 						 <input id="site-name" placeholder="Site name" class="form-control col-md-7 col-xs-12" type="text" name="site-name">
-					 					  </div>
-				 					</div>
-									<div class="form-group">
-									  <div class="col-xs-12">
-										 <input type="text" id="incident-type" placeholder="Incident type" required="required" class="form-control col-md-7 col-xs-12">
-									  </div>
-									</div>
-									<div class="form-group" style="margin-bottom: 0; padding-bottom: 0;">
-									  <div class="col-xs-12">
-										 <input type="text" id="status" name="status" required="required" placeholder="Status/State" class="form-control col-md-7 col-xs-12">
-									  </div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-xs-12" >
-									<div class="form-group">
-										<div class="col-xs-12">
-											<input type="text" id="scope" name="scope" required="required" placeholder="Scope" class="form-control col-md-7 col-xs-12">
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-xs-12">
-											<input type="text" id="start-time" name="start-time" required="required" placeholder="Start time" class="form-control col-md-7 col-xs-12">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="ln_solid"></div>
-						</form>
-					</div>
-
-				</div>
-			<!-- </div>
+	<div class="center-desc-div animated fadeIn" role="main" style="margin: 0 auto; position:relative;">
+	<div class="x_panel">
+		<div class="x_title">
+			<h2>Incident Description </h2>
+			<div class="clearfix"></div>
 		</div>
-	</div> -->
-	<div style="margin: 0 auto; text-align: center;">
-		<button type="submit" class="btn info-btn btn-btn disabled" name="next" id="js-call-or-ticket-button">NEXT</button>
+		<div class="x_content">
+			<br />
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<input id="site-name" placeholder="Site name" class="form-control" type="text" name="site-name" required>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<input name="building-number" class="form-control" placeholder="Building number" type="text" required>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<input type="text" id="incident-type" placeholder="Incident type" class="form-control" required>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-xs-12" >
+					<div class="col-xs-12">
+						<div class="form-group">
+							<input type="text" id="start-time" name="start-time" placeholder="Start time" class="form-control" required>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<input type="text" id="status" name="status" placeholder="Status/State" class="form-control" required>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<input type="text" id="scope" name="scope" placeholder="Scope" class="form-control" required>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	</div>
 </template>
 

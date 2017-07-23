@@ -37,12 +37,40 @@ Template.dashboard.onRendered(function() {
   	$('body').addClass("nav-md");
 });
 Template.createMajorIncident.onRendered(function() {
-  	$('#js-create-inc-previous-button').hide(500);
+	$('#js-create-incident-form').validate({
+		rules: {
+			'caller-name': {
+				required: true,
+				minlength: 3
+			},
+			'phone-number': {
+				required: true,
+				minlength: 10
+			},
+			'department': {
+				required: true,
+				minlength: 3
+			}
+		},
+		messages: {
+			'caller-name': {
+				 required: "You must enter the caller's name."
+			},
+			'phone-number': {
+				 required: "You must enter a phone number."
+			},
+			'department': {
+				 required: "You must enter the caller's department."
+			}
+	  	}
+	});
+
 	Session.set({'callOrTicket.call': false});
 	Session.set({'callOrTicket.ticket': false});
 	$('input#js-radio-call').iCheck('uncheck');
 	$('input#js-radio-ticket').iCheck('uncheck');
 	$('#js-create-inc-next-button').addClass("disabled");
+	$('#js-create-inc-previous-button').hide(500);
 });
 
 
