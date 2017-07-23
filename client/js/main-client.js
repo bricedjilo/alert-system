@@ -2,6 +2,27 @@
 Meteor.startup(function () {
 	Meteor.subscribe('user');
 	Session.set({view: "contentHome"});
+	// $.validator.setDefaults({
+   //  rules: {
+   //      'caller-name': {
+   //          required: true,
+	// 			minlength: 3
+   //      },
+   //      'phone-number': {
+   //          required: true,
+	// 			minlength: 10
+   //      }
+   //  },
+   //  messages: {
+   //      'caller-name': {
+   //          required: "You must enter a name."
+   //      },
+   //      'phone-number': {
+   //          required: "You must enter a phone number.",
+   //          minlength: "Your phone number must be at least {0} characters."
+   //      }
+   //  }
+	//});
 });
 
 ///////////////
@@ -23,30 +44,63 @@ Template.dashboard.helpers({
 	}
 });
 
-
 /////////////
 /// events
 /////////////
 
-Template.callOrTicket.events({
-	'click #js-call-or-ticket-button': function(event) {
-		if(event.target.className.indexOf("disabled") < 0) {
-			event.preventDefault();
-			$("#js-call-or-ticket-form").animate({ right: '23%', opacity: 0.3 }, 250);
+Template.createMajorIncident.events({
+	'submit form': function(event) {
+		event.preventDefault();
+		console.log("SUBMITTED");
+		if(event.target.className.indexOf("disabled")<0) {
+			$($('form').children()[0]).animate({ right: '0%', opacity: 0.3 }, 400);
 			setTimeout(function () {
-				Session.set({view_create_incident: 'callerInfo'});
-			}, 300);
-			console.log("move");
-			return false;
+				if(Session.get('view_create_incident').indexOf("callOrTicket")>=0) {
+					Session.set({view_create_incident: 'callerInfo'});
+				} else if(Session.get('view_create_incident').indexOf("callerInfo")>=0) {
+					Session.set({view_create_incident: 'incidentDescription'});
+				}
+			}, 300)
 		}
+		return false;
 	},
-	'click #js-call-or-ticket-form': function(event) {
-		// console.log('event');
-		// event.preventDefault();
-		// $('input').on('ifChecked', function(event){
-		//   console.log(event.type + ' callback');
-		// });
+	'input input': function(event) {
+		event.preventDefault();
+		var inputs = $('form').find('input');
+		inputs.each(function(index, input) {
+			if(!input.value) {
+				$('#js-create-inc-next-button').addClass('disabled');
+				return;
+			} else {
+				if(index == inputs.length-1) {
+					$('#js-create-inc-next-button').removeClass('disabled');
+				}
+			}
+		});
+	},
+	'click #js-create-inc-previous-button': function(event) {
+		event.preventDefault();
+		var form = event.target.form.elements;
+		Session.set({caller: {
+			name: (form['caller-name'].value.length > 0)?form['caller-name'].value:undefined,
+			phone: (form['phone-number'].value.length > 0)?form['phone-number'].value:undefined,
+			department: (form['department'].value.length > 0)?form['department'].value:undefined,
+			building: (form['building-number'].value.length > 0)?form['building-number'].value:undefined
+		}});
+		// console.log(event.target.form.elements['caller-name'].value);
+		Session.set({view_create_incident: 'callOrTicket'});
+		$('#js-create-inc-previous-button').hide(500);
+		return false;
+	}
+});
 
+Template.callOrTicket.events({
+
+});
+
+Template.callerInfo.events({
+	'focus #name-caller': function(event) {
+		console.log("on focus");
 	}
 });
 
@@ -89,11 +143,20 @@ Template.sideMenu.events({
 	'click #js-create-priority': function(event) {
 		event.preventDefault();
 		console.log('create');
-		$('input').iCheck('uncheck');
-		$('#js-call-or-ticket-button').addClass("disabled");
+		// $('#js-create-inc-previous-button').hide();
+		// $('#js-create-inc-previous-button').addClass("disabled");
+		// if(Session.get('callOrTicket.call') || Session.get('callOrTicket.ticket')) {
+		// 	$('#js-create-inc-next-button').removeClass("disabled");
+		// } else {
+		// 	$('#js-create-inc-next-button').addClass("disabled");
+		// }
+		Session.set({'callOrTicket.call': false});
+		Session.set({'callOrTicket.ticket': false});
 		Session.set({view_create_incident: 'callOrTicket'});
 		Session.set({view: 'createMajorIncident'});
-
+		$('#js-create-inc-previous-button').hide(500);
+		$('#js-create-inc-next-button').addClass("disabled");
+		Session.set({caller: {}});
 	}
 });
 
