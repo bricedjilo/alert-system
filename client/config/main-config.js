@@ -39,11 +39,11 @@ Template.dashboard.onRendered(function() {
 Template.createMajorIncident.onRendered(function() {
 	$('#js-create-incident-form').validate({
 		rules: {
-			'caller-name': {
+			'caller': {
 				required: true,
 				minlength: 3
 			},
-			'phone-number': {
+			'phone': {
 				required: true,
 				minlength: 10
 			},
@@ -53,10 +53,10 @@ Template.createMajorIncident.onRendered(function() {
 			}
 		},
 		messages: {
-			'caller-name': {
+			'caller': {
 				 required: "You must enter the caller's name."
 			},
-			'phone-number': {
+			'phone': {
 				 required: "You must enter a phone number."
 			},
 			'department': {
@@ -64,7 +64,6 @@ Template.createMajorIncident.onRendered(function() {
 			}
 	  	}
 	});
-
 	Session.set({'callOrTicket.call': false});
 	Session.set({'callOrTicket.ticket': false});
 	$('input#js-radio-call').iCheck('uncheck');
@@ -72,7 +71,6 @@ Template.createMajorIncident.onRendered(function() {
 	$('#js-create-inc-next-button').addClass("disabled");
 	$('#js-create-inc-previous-button').hide(500);
 });
-
 
 /*----------------- Accounts -------------------------- */
 Accounts.onLogin(function() {
@@ -123,17 +121,36 @@ Template.callOrTicket.onRendered(function() {
 });
 
 Template.callerInfo.onRendered(function() {
-	$('#js-create-inc-next-button').addClass("disabled");
+	var next = $('#js-create-inc-next-button');
+	next.addClass("disabled");
 	$('#js-create-inc-previous-button').show(400);
-
-	var caller = Session.get('caller');
+	var caller = Session.get('caller') || {};
 	var form = $("#js-create-incident-form");
-	var keys = (caller)?Object.keys(caller):[];
-	if(caller && keys.length) {
+	setWithPrevInput(caller, form);
+	enableNextButton(Object.keys(caller), form.find('input'), next);
+});
+
+function setWithPrevInput(InputObject, form) {
+	var keys = (InputObject)?Object.keys(InputObject):[];
+	if(InputObject && keys.length) {
 		keys.forEach(function(key, index) {
-			form.find('input[name*=' + key + ']').val(caller[key]);
+			form.find('input[name*=' + key + ']').val(InputObject[key]);
 		});
 	}
+}
+
+function enableNextButton(keys, inputs, nextButton) {
+	if(keys.length == inputs.length) {
+		nextButton.removeClass('disabled');
+	}
+}
+
+Template.incidentDesc.onRendered(function() {
+	var next = $('#js-create-inc-next-button');
+	next.addClass("disabled");
+	var incidentDesc = Session.get('incidentDesc');
+	var form = $("#js-create-incident-form");
+	setWithPrevInput(incidentDesc, form);
 });
 
 // $('input.flat').iCheck();
