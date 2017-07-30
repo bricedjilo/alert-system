@@ -11,10 +11,15 @@
 	 padding-top: 10%;
 }
 
-.info-btn {background-color: #2196F3;} /* Blue */
+.info-btn {background-color: #2196f3;} /* Blue */
 .info-btn:hover {
 	background: #0b7dda;
 	color: white !important;
+}
+
+.disabled {
+	background-color: #a5a5a5;
+	color: black;
 }
 
 .btn-btn {
