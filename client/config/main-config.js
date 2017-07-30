@@ -17,6 +17,10 @@ Router.route('/dashboard', function() {
     this.render("dashboard");
 });
 
+Router.route('/incident', function() {
+    this.render("createMajorIncident");
+});
+
 Router.onBeforeAction(function () {
 	if (!Meteor.userId()) {
 		this.render('login');
@@ -32,6 +36,42 @@ Template.login.onRendered(function() {
 Template.dashboard.onRendered(function() {
   	$('body').addClass("nav-md");
 });
+Template.createMajorIncident.onRendered(function() {
+	$('#js-create-incident-form').validate({
+		rules: {
+			'caller-name': {
+				required: true,
+				minlength: 3
+			},
+			'phone-number': {
+				required: true,
+				minlength: 10
+			},
+			'department': {
+				required: true,
+				minlength: 3
+			}
+		},
+		messages: {
+			'caller-name': {
+				 required: "You must enter the caller's name."
+			},
+			'phone-number': {
+				 required: "You must enter a phone number."
+			},
+			'department': {
+				 required: "You must enter the caller's department."
+			}
+	  	}
+	});
+
+	Session.set({'callOrTicket.call': false});
+	Session.set({'callOrTicket.ticket': false});
+	$('input#js-radio-call').iCheck('uncheck');
+	$('input#js-radio-ticket').iCheck('uncheck');
+	$('#js-create-inc-next-button').addClass("disabled");
+	$('#js-create-inc-previous-button').hide(500);
+});
 
 
 /*----------------- Accounts -------------------------- */
@@ -46,7 +86,56 @@ Accounts.onLogout(function() {
 	Router.go('/login');
 });
 
+/*-------------------- JS ------------------------------- */
+
+
 /*------------------ iCheck ---------------------------- */
+Template.callOrTicket.onRendered(function() {
+	$('input.flat').iCheck({
+		 checkboxClass: 'icheckbox_flat-blue',
+		 radioClass: 'iradio_flat-green'
+	});
+	if(Session.get('callOrTicket.call')) {
+		$('#js-create-inc-next-button').removeClass("disabled");
+		$('input#js-radio-call').iCheck('check');
+	} else if(Session.get('callOrTicket.ticket')) {
+		$('input#js-radio-ticket').iCheck('check');
+		$('#js-create-inc-next-button').removeClass("disabled");
+	}
+	$('input#js-radio-call').on('ifChecked', function(event) {
+		$('#js-create-inc-next-button').removeClass("disabled");
+		Session.set({'callOrTicket.call': true});
+		Session.set({'callOrTicket.ticket': false});
+	});
+	$('input#js-radio-ticket').on('ifChecked', function(event) {
+		$('#js-create-inc-next-button').removeClass("disabled");
+		Session.set({'callOrTicket.ticket': true});
+		Session.set({'callOrTicket.call': false});
+	});
+	$('input#js-radio-call').on('ifUnChecked', function(event) {
+		// $('#js-create-inc-next-button').removeClass("disabled");
+		Session.set({'callOrTicket.call': false});
+	});
+	$('input#js-radio-ticket').on('ifUnChecked', function(event) {
+		// $('#js-create-inc-next-button').removeClass("disabled");
+		Session.set({'callOrTicket.ticket': false});
+	});
+});
+
+Template.callerInfo.onRendered(function() {
+	$('#js-create-inc-next-button').addClass("disabled");
+	$('#js-create-inc-previous-button').show(400);
+
+	var caller = Session.get('caller');
+	var form = $("#js-create-incident-form");
+	var keys = (caller)?Object.keys(caller):[];
+	if(caller && keys.length) {
+		keys.forEach(function(key, index) {
+			form.find('input[name*=' + key + ']').val(caller[key]);
+		});
+	}
+});
+
 // $('input.flat').iCheck();
 Template.dashboard.onRendered(function() {
 	$('input.flat').iCheck({

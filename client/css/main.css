@@ -1,1 +1,51 @@
 /* CSS declarations go here */
+
+.center-div {
+    /*margin: auto;*/
+    width: 50%;
+	 padding-top: 10%;
+}
+.center-desc-div {
+    /*margin: auto;*/
+    width: 70%;
+	 padding-top: 10%;
+}
+
+.info-btn {background-color: #2196F3;} /* Blue */
+.info-btn:hover {
+	background: #0b7dda;
+	color: white !important;
+}
+
+.btn-btn {
+    border: none; /* Remove borders */
+    color: white; /* Add a text color */
+    padding: 14px 28px; /* Add some padding */
+    cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+
+@-webkit-keyframes fadeIn {
+   0% {opacity: 0;}
+   100% {opacity: 1;}
+}
+
+@keyframes fadeIn {
+   0% {opacity: 0;}
+   100% {opacity: 1;}
+}
+
+.fadeIn {
+   -webkit-animation-name: fadeIn;
+   animation-name: fadeIn;
+}
+
+.animated {
+   -webkit-animation-duration: 2s;
+   animation-duration: 2s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+}
+
+input.error{
+    background-color:rgb(255, 231, 231);
+}
