@@ -122,21 +122,26 @@ Template.callOrTicket.onRendered(function() {
 
 Template.callerInfo.onRendered(function() {
 	var next = $('#js-create-inc-next-button');
-	next.addClass("disabled");
+	next.removeClass("disabled");
 	$('#js-create-inc-previous-button').show(400);
 	var caller = Session.get('caller') || {};
 	var form = $("#js-create-incident-form");
-	setWithPrevInput(caller, form);
-	enableNextButton(Object.keys(caller), form.find('input'), next);
+	next.addClass(setWithPrevInput(caller, form));
+	// enableNextButton(Object.keys(caller), form.find('input'), next);
 });
 
 function setWithPrevInput(InputObject, form) {
+	var nextButtonState = "";
 	var keys = (InputObject)?Object.keys(InputObject):[];
 	if(InputObject && keys.length) {
 		keys.forEach(function(key, index) {
 			form.find('input[name*=' + key + ']').val(InputObject[key]);
+			if(InputObject[key].length == 0) {
+				nextButtonState = "disabled";
+			}
 		});
 	}
+	return nextButtonState;
 }
 
 function enableNextButton(keys, inputs, nextButton) {
@@ -147,10 +152,10 @@ function enableNextButton(keys, inputs, nextButton) {
 
 Template.incidentDesc.onRendered(function() {
 	var next = $('#js-create-inc-next-button');
-	next.addClass("disabled");
+	next.removeClass("disabled");
 	var incidentDesc = Session.get('incidentDesc');
 	var form = $("#js-create-incident-form");
-	setWithPrevInput(incidentDesc, form);
+	next.addClass(setWithPrevInput(incidentDesc, form));
 });
 
 // $('input.flat').iCheck();
