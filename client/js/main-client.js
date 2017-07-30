@@ -52,13 +52,22 @@ Template.createMajorIncident.events({
 	'submit form': function(event) {
 		event.preventDefault();
 		console.log("SUBMITTED");
+		var template = {};
+		var inputs = $('#js-create-incident-form').find('input');
+		inputs.each(function(index) {
+			// console.log(this.value.length);
+			if(this.value.length>0) {
+				template[this.name] = this.value;
+			}
+		});
 		if(event.target.className.indexOf("disabled")<0) {
 			$($('form').children()[0]).animate({ right: '0%', opacity: 0.3 }, 400);
 			setTimeout(function () {
 				if(Session.get('view_create_incident').indexOf("callOrTicket")>=0) {
 					Session.set({view_create_incident: 'callerInfo'});
 				} else if(Session.get('view_create_incident').indexOf("callerInfo")>=0) {
-					Session.set({view_create_incident: 'incidentDescription'});
+					Session.set({caller: template});
+					Session.set({view_create_incident: 'incidentDesc'});
 				}
 			}, 300)
 		}
@@ -80,28 +89,44 @@ Template.createMajorIncident.events({
 	},
 	'click #js-create-inc-previous-button': function(event) {
 		event.preventDefault();
-		var form = event.target.form.elements;
-		Session.set({caller: {
-			name: (form['caller-name'].value.length > 0)?form['caller-name'].value:undefined,
-			phone: (form['phone-number'].value.length > 0)?form['phone-number'].value:undefined,
-			department: (form['department'].value.length > 0)?form['department'].value:undefined,
-			building: (form['building-number'].value.length > 0)?form['building-number'].value:undefined
-		}});
-		// console.log(event.target.form.elements['caller-name'].value);
-		Session.set({view_create_incident: 'callOrTicket'});
-		$('#js-create-inc-previous-button').hide(500);
+		var template = {};
+		var inputs = $('#js-create-incident-form').find('input');
+		inputs.each(function(index) {
+			// console.log(this.value.length);
+			if(this.value.length>0) {
+				template[this.name] = this.value;
+			}
+		});
+		$($('form').children()[0]).animate({ right: '0%', opacity: 0.3 }, 400);
+		setTimeout(function () {
+			if(Session.get('view_create_incident').indexOf("callerInfo")>=0) {
+				Session.set({view_create_incident: 'callOrTicket'});
+				Session.set({caller: template});
+				$('#js-create-inc-previous-button').hide(500);
+			} else if(Session.get('view_create_incident').indexOf("incidentDesc")>=0) {
+				// console.log(template);
+				Session.set({incidentDesc: template});
+				Session.set({view_create_incident: 'callerInfo'});
+			}
+		}, 300)
 		return false;
 	}
 });
 
 Template.callOrTicket.events({
-
+	'click #js-create-inc-next-button': function() {
+	}
 });
 
 Template.callerInfo.events({
-	'focus #name-caller': function(event) {
-		console.log("on focus");
-	}
+
+});
+
+Template.incidentDesc.events(function() {
+	// 'click #js-create-inc-previous-button': function(event) {
+	// 	event.preventDefault();
+	// 	return false;
+	// }
 });
 
 Template.login.events({
@@ -156,7 +181,9 @@ Template.sideMenu.events({
 		Session.set({view: 'createMajorIncident'});
 		$('#js-create-inc-previous-button').hide(500);
 		$('#js-create-inc-next-button').addClass("disabled");
+		$('input').iCheck('uncheck');
 		Session.set({caller: {}});
+		Session.set({incidentDesc: {}});
 	}
 });
 
