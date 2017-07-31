@@ -81,6 +81,7 @@ Accounts.onLogin(function() {
 Accounts.onLogout(function() {
 	$('body').addClass("hexcel");
 	$('body').removeClass("nav-md");
+	Session.keys = {};
 	Router.go('/login');
 });
 

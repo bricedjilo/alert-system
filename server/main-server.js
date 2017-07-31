@@ -77,5 +77,19 @@ Meteor.methods({
 		//  	}, function(error){
 		//   console.log(error);
 		//  	});
+	},
+	getSites: function(query) {
+		check(query, String);
+		var sites = Meteor.call('sites');
+		return sites.filter(function(site) {
+			return (site.name.toLowerCase().indexOf(query)>=0 || site.code.toLowerCase().indexOf(query)>=0);
+		});
+	},
+	getIncidentTypes: function(query) {
+		check(query, String);
+		var incidentTypes = Meteor.call('incidentTypes');
+		return incidentTypes.filter(function(incidentType) {
+			return (incidentType.name.toLowerCase().indexOf(query)>=0);
+		});
 	}
 });

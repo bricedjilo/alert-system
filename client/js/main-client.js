@@ -2,6 +2,9 @@
 Meteor.startup(function () {
 	Meteor.subscribe('user');
 	Session.set({view: "contentHome"});
+	Session.set("sites",[]);
+	Session.set("building",[]);
+	Session.set("view_incident_types",[]);
 	// $.validator.setDefaults({
    //  rules: {
    //      'caller-name': {
@@ -42,6 +45,25 @@ Template.dashboard.helpers({
 	getContent: function() {
 		return Session.get("view");
 	}
+});
+
+Template.incidentDesc.helpers({
+	getSites: function() {
+	  return Session.get("sites");
+  },
+  getBlgNum: function(code) {
+	  return Session.get("building");
+  },
+  getIncidentTypes: function() {
+	  return Session.get("view_incident_types");
+  },
+  getIncidentForm: function() {
+	  var incidentTypes = Session.get('view_incident_types');
+	  if(incidentTypes && incidentTypes.length > 0) {
+		  return incidentTypes[0].code;
+	  }
+	  return "";
+  }
 });
 
 /////////////
@@ -122,11 +144,45 @@ Template.callerInfo.events({
 
 });
 
-Template.incidentDesc.events(function() {
-	// 'click #js-create-inc-previous-button': function(event) {
-	// 	event.preventDefault();
-	// 	return false;
-	// }
+Template.incidentDesc.events({
+	'input #site': function(event) {
+		event.preventDefault();
+		var query = event.target.value;
+		Meteor.call('getSites', query.toLowerCase(), function (err, result) {
+			if (result) {
+				 Session.set("sites", result);
+			} else if (err) {
+				 console.log(err);
+			}
+		});
+	},
+	'input #building': function(event) {
+		event.preventDefault();
+		var query = event.target.value;
+		var sites = Session.get("sites");
+		var code = $('#site').val();
+		if(sites.length>0) {
+			sites = sites.filter(function(site) {
+				if(site.code.indexOf(code)>=0) {
+					return true;
+				}
+			});
+			Session.set('building', sites[0].building);
+		}
+	},
+	'input #incident': function(event) {
+		event.preventDefault();
+		var query = event.target.value;
+		// if(query) {
+			Meteor.call('getIncidentTypes', query.toLowerCase(), function (err, result) {
+				if (result) {
+					 Session.set("view_incident_types", result);
+				} else if (err) {
+					 console.log(err);
+				}
+			});
+		// }
+	}
 });
 
 Template.login.events({

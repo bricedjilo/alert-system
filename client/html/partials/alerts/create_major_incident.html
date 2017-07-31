@@ -49,52 +49,71 @@
 
 <template name="incidentDesc">
 	<div class="center-desc-div animated fadeIn" role="main" style="margin: 0 auto; position:relative;">
-	<div class="x_panel">
-		<div class="x_title">
-			<h2>Incident Description </h2>
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-			<br />
-			<div class="row">
-				<div class="col-sm-6 col-xs-12">
-					<div class="col-xs-12">
-						<div class="form-group">
-							<input id="site" placeholder="Site name" class="form-control" type="text" name="site" required>
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Incident Description </h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br />
+				<div class="row">
+					<div class="col-sm-6 col-xs-12">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<input id="site" list="sites" placeholder="Site name" class="form-control" type="text" name="site" required>
+								<datalist id="sites">
+									{{#each getSites}}
+										<option value="{{code}}" id="{{code}}">{{name}}</option>
+									{{/each}}
+								</datalist>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<input name="building" id="building" list="buildings" class="form-control" placeholder="Building number" type="text" required>
+								<datalist id="buildings">
+									{{#each getBlgNum}}
+										<option value="{{number}} - {{desc}}" id="{{number}}">{{desc}}</option>
+									{{/each}}
+								</datalist>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<input type="text" id="incident" list="incidentTypes" name="incident" placeholder="Incident type" class="form-control" required>
+								<datalist id="incidentTypes">
+									{{#each getIncidentTypes}}
+										<option value="{{name}}" id="{{code}}"></option>
+									{{/each}}
+								</datalist>
+							</div>
 						</div>
 					</div>
-					<div class="col-xs-12">
-						<div class="form-group">
-							<input name="building" class="form-control" placeholder="Building number" type="text" required>
+					<div class="col-sm-6 col-xs-12" >
+						<div class="col-xs-12">
+							<div class="form-group">
+								<input type="text" id="start" name="start" placeholder="Start time" class="form-control" required>
+							</div>
 						</div>
-					</div>
-					<div class="col-xs-12">
-						<div class="form-group">
-							<input type="text" id="incident" name="incident" placeholder="Incident type" class="form-control" required>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<input type="text" id="status" name="status" placeholder="Status/State" class="form-control" required>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-xs-12" >
-					<div class="col-xs-12">
-						<div class="form-group">
-							<input type="text" id="start" name="start" placeholder="Start time" class="form-control" required>
-						</div>
-					</div>
-					<div class="col-xs-12">
-						<div class="form-group">
-							<input type="text" id="status" name="status" placeholder="Status/State" class="form-control" required>
-						</div>
-					</div>
-					<div class="col-xs-12">
-						<div class="form-group">
-							<input type="text" id="scope" name="scope" placeholder="Scope" class="form-control" required>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<input type="text" id="scope" name="scope" placeholder="Scope" class="form-control" required>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="">
+			{{> UI.dynamic template=getIncidentForm}}
+		</div>
 	</div>
-	</div>
+
 </template>
 
 <template name="callIssue">
@@ -159,31 +178,26 @@
   </div>
 </template>
 
-<template name="pForms">
-  {{> UI.dynamic template=getSelectedPform}}
-</template>
-
-<template name="ftpcgrip">
+<template name="grip-ftpc">
   <form id="js-ftpcgrip-form">
     <hr>
     <div class="row form-group">
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <input type='text' class="form-control" id='datetimepicker' placeholder="When did the issue start?" required/>
-            <input type='text' class="form-control" name='batchNumber' placeholder="What is the batch/lot number?" required/>
-            <input type='text' class="form-control" name='batchNumber' placeholder="What was the last batch/lot completed?" required/>
+            <input type='text' class="form-control" name='batchNumber' placeholder="Current batch/lot number?" required/>
+            <input type='text' class="form-control" name='lastBatchNumber' placeholder="Last batch/lot completed?" required/>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <select class="form-control" id="select-line">
-                <option value="">Which line?</option>
-                <option value="line-1" id='line1'>Line 1</option>
-                <option value="line-2" id='line2'>Line 2</option>
-                <option value="line-3" id='line3'>Line 3</option>
-                <option value="line-4" id='line4'>Line 4</option>
-                <option value="line-5" id='line5'>Line 5</option>
-                <option value="line-6" id='line6'>Line 6</option>
-              </select>
+				 <input type='text' class="form-control" list="lines" name='lines' placeholder="Which line?" multiple required/>
+				 	<datalist id="lines">
+						<option value="line-1" id='line1'>Line 1</option>
+                  <option value="line-2" id='line2'>Line 2</option>
+                  <option value="line-3" id='line3'>Line 3</option>
+                  <option value="line-4" id='line4'>Line 4</option>
+                  <option value="line-5" id='line5'>Line 5</option>
+                  <option value="line-6" id='line6'>Line 6</option>
+				 	</datalist>
             <input type='text' class="form-control" name='orderNumber' placeholder="What is the current order number?" required/>
             <input type='text' class="form-control" name='lastOrderCompleted' placeholder="What was the last order completed?" required/>
           </div>
