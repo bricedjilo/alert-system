@@ -50,20 +50,20 @@ Template.dashboard.helpers({
 Template.incidentDesc.helpers({
 	getSites: function() {
 	  return Session.get("sites");
-  },
-  getBlgNum: function(code) {
+  	},
+  	getBlgNum: function(code) {
 	  return Session.get("building");
-  },
-  getIncidentTypes: function() {
+  	},
+  	getIncidentTypes: function() {
 	  return Session.get("view_incident_types");
-  },
-  getIncidentForm: function() {
+  	},
+  	getIncidentForm: function() {
 	  var incidentTypes = Session.get('view_incident_types');
 	  if(incidentTypes && incidentTypes.length > 0) {
 		  return incidentTypes[0].code;
 	  }
 	  return "";
-  }
+  	}
 });
 
 /////////////
@@ -161,14 +161,9 @@ Template.incidentDesc.events({
 		var query = event.target.value;
 		var sites = Session.get("sites");
 		var code = $('#site').val();
-		if(sites.length>0) {
-			sites = sites.filter(function(site) {
-				if(site.code.indexOf(code)>=0) {
-					return true;
-				}
-			});
-			Session.set('building', sites[0].building);
-		}
+		Session.set(
+			'building', sites[0].building || []
+		);
 	},
 	'input #incident': function(event) {
 		event.preventDefault();
