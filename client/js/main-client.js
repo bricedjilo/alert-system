@@ -85,7 +85,9 @@ Template.createMajorIncident.events({
 				template[this.name] = this.value;
 			}
 		});
-		if(event.target.className.indexOf("disabled")<0) {
+		if(event.target.className.indexOf("disabled")<0 &&
+			(Session.get('callOrTicket.call') || Session.get('callOrTicket.ticket'))
+		) {
 			$($('form').children()[0]).animate({ right: '0%', opacity: 0.3 }, 400);
 			setTimeout(function () {
 				if(Session.get('view_create_incident').indexOf("callOrTicket")>=0) {

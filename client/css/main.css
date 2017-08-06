@@ -54,3 +54,15 @@
 input.error{
     background-color:rgb(255, 231, 231);
 }
+
+/**--------------- Date Picker ---------------**/
+
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover {
+	background: #1ABB9C !important;
+}
+
+.btn-primary {
+	background: #1ABB9C !important;
+	border-color: #1ABB9C !important;
+}

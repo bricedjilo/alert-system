@@ -112,11 +112,11 @@ Template.callOrTicket.onRendered(function() {
 		Session.set({'callOrTicket.call': false});
 	});
 	$('input#js-radio-call').on('ifUnChecked', function(event) {
-		// $('#js-create-inc-next-button').removeClass("disabled");
+		$('#js-create-inc-next-button').addClass("disabled");
 		Session.set({'callOrTicket.call': false});
 	});
 	$('input#js-radio-ticket').on('ifUnChecked', function(event) {
-		// $('#js-create-inc-next-button').removeClass("disabled");
+		$('#js-create-inc-next-button').addClass("disabled");
 		Session.set({'callOrTicket.ticket': false});
 	});
 });
@@ -152,6 +152,7 @@ function enableNextButton(keys, inputs, nextButton) {
 }
 
 Template.incidentDesc.onRendered(function() {
+	$('.datetimepicker').datetimepicker();
 	var next = $('#js-create-inc-next-button');
 	next.removeClass("disabled");
 	var incidentDesc = Session.get('incidentDesc');
