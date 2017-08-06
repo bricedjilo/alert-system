@@ -5,6 +5,9 @@ Meteor.startup(function () {
 	Session.set("sites",[]);
 	Session.set("building",[]);
 	Session.set("view_incident_types",[]);
+	// Router.go();
+	// console.log(Router.current().route.getName());
+
 	// $.validator.setDefaults({
    //  rules: {
    //      'caller-name': {
@@ -235,6 +238,7 @@ Template.sideMenu.events({
 		$('input').iCheck('uncheck');
 		Session.set({caller: {}});
 		Session.set({incidentDesc: {}});
+		Router.go('/incident');
 	}
 });
 

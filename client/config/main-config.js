@@ -13,19 +13,19 @@ Router.route('/', function() {
     this.render("login");
 });
 
-Router.route('/dashboard', function() {
-    this.render("dashboard");
+Router.route('/incident', function() {
+	this.render("dashboard", { to: 'main' });
 });
 
-Router.route('/incident', function() {
-    this.render("createMajorIncident");
+Router.route('/dashboard', function() {
+ 	this.render("dashboard", { to: 'main' });
 });
 
 Router.onBeforeAction(function () {
 	if (!Meteor.userId()) {
 		this.render('login');
   	} else {
-	  	this.next();
+	 	this.next();
   	}
 });
 
